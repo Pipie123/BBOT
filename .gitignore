@@ -1,4 +1,4 @@
 .idea/
 node_modules
 BBOT.iml
-config.js
+./config.js
