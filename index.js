@@ -1,4 +1,4 @@
-const Config = require("./config");
+const Config = require("./configInfo");
 const token = Config.token;
 const Discord = require("discord.js");
 const { sep } = require("path");
