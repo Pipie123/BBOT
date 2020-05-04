@@ -1,4 +1,5 @@
-const token = "NzAwMTU3MTYxNzg2ODM1MDM0.Xpe8rQ.ZKwM4imh63_1UDJZkk_FGZCriJU";
+const Config = require("./config");
+const token = Config.token;
 const Discord = require("discord.js");
 const { sep } = require("path");
 const bot = new Discord.Client();
