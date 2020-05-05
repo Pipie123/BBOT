@@ -38,7 +38,7 @@ bot.on("guildMemberAdd", (member) => {
     const channel = member.guild.channels.cache.find(channel => channel.name === "general");
     if (!channel) console.log("not found");
     else {
-        channel.send("bruh");
+        channel.send("Ew a new person");
         const command = bot.commands.get("serverEnter");
         console.log(bot.commands.get("serverEnter"));
         command.run(bot, member, channel)
