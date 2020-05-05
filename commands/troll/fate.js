@@ -5,7 +5,7 @@ module.exports.run = async (bot, msg, args) => {
     let mentionUser = null;
     let bruh = (Math.floor(Math.random() * 4));
     console.log(bruh);
-    let id = msg.author.id;
+    //let id = msg.author.id;
     console.log(msg.author.id);
     switch (bruh) {
         case 0:
@@ -18,18 +18,18 @@ module.exports.run = async (bot, msg, args) => {
             }
             break;
         case 1:
-            if (id === "364181443301343232") {
+            /*/if (id === "364181443301343232") {
                 console.log('bruh');
                 return (msg.channel.send("> **" + user + "** is deemed as swag.").then(m => m.delete({timeout: 1})).then(msg => msg.channel.send("> **" + user + "** the gay is deemed as gay.")));
             }
-            else {
+            else { /*/
                 if (mention == null) {
                     await msg.channel.send("> **" + user + "** is deemed as swag.");
                 } else {
                     mentionUser = mention.username;
                     await msg.channel.send("> **" + mentionUser + "** is deemed as swag");
                 }
-            }
+            //}
             break;
         case 2:
             if (mention == null) {
@@ -41,18 +41,18 @@ module.exports.run = async (bot, msg, args) => {
             }
             break;
         case 3:
-            if (id === "364181443301343232") {
+            /*/if (id === "364181443301343232") {
                 console.log('bruh');
                 return (msg.channel.send("> **" + user + "** is deemed as lit.").then(m => m.delete({timeout: 1})).then(msg => msg.channel.send("> **" + user + "** is deemed as homosexual.")));
             }
-            else {
+            else { /*/
                 if (mention == null) {
                    await msg.channel.send("> **" + user + "** is deemed as lit.");
                 } else {
                     mentionUser = mention.username;
                     await msg.channel.send("> **" + mentionUser + "** is deemed as lit.");
                 }
-            }
+           // }
             break;
         case 4:
             await msg.channel.send("> **" + user + "** are fking hacking");

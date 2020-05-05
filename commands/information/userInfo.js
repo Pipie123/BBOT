@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-module.exports.run = async (bot, msg, args) => {
+module.exports.run = (bot, msg, args) => {
     console.log("bruh");
     let bruhMoment = msg.author;
     let embed = new Discord.MessageEmbed()
@@ -9,7 +9,7 @@ module.exports.run = async (bot, msg, args) => {
         .addField("Player ID:", bruhMoment.id)
         .setColor('#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6))
         .setThumbnail(bruhMoment.avatarURL());
-    await msg.channel.send(embed);
+    msg.channel.send(embed);
 };
 
 // Help Object

@@ -4,7 +4,7 @@ const Discord = require("discord.js");
 const { sep } = require("path");
 const bot = new Discord.Client();
 const fs = require("fs");
-const Prefix = "!";
+const Prefix = "*";
 
 ["commands", "aliases"].forEach(x => bot[x] = new Discord.Collection());
 
@@ -33,30 +33,51 @@ load();
 bot.on("ready", () => {
     console.log("Bot is ready");
 });
+
+bot.on("guildMemberAdd", (member) => {
+    const channel = member.guild.channels.cache.find(channel => channel.name === "general");
+    if (!channel) console.log("not found");
+    else {
+        channel.send("bruh");
+        const command = bot.commands.get("serverEnter");
+        console.log(bot.commands.get("serverEnter"));
+        command.run(bot, member, channel)
+    }
+});
+
 //Credits to Anish-Shobith URL: https://gist.github.com/Anish-Shobith/f818c6ef4e0bfa32c6527b219558e78a
 bot.on ("message",  async msg=> {
     const args = msg.content.slice(Prefix.length).trim().split(/ +/g);
     const cmd = args.shift();
-    let command;
-    //
-    if (msg.author.bot || !msg.guild || !msg.content.startsWith(Prefix)) return;
-    if (!msg.member) msg.member = await msg.guild.fetchMember(msg.author);
-    if (cmd.length === 0) await msg.channel.send("Type something...");
-    // if command is found
-    if (bot.commands.has(cmd)) {
-        command = bot.commands.get(cmd);
-        console.log("found")
+    const channel = msg.guild.channels.cache.find(channel => channel.name === "bot-commands");
+    if (channel) {
+        if (msg.channel !== channel && msg.content.startsWith(Prefix)) {
+            await msg.delete();
+        }
+        msg.channel = channel;
+        let command;
+        if (msg.author.bot || !msg.guild || !msg.content.startsWith(Prefix)) return;
+        if (!msg.member) msg.member = await msg.guild.fetchMember(msg.author);
+        if (cmd.length === 0) await msg.channel.send("Type something...");
+        // if command is found
+        if (bot.commands.has(cmd)) {
+            command = bot.commands.get(cmd);
+            console.log("found")
+        }
+        // if alias is found
+        else if (bot.aliases.has(cmd)) {
+            command = bot.commands.get(bot.aliases.get(cmd));
+            console.log("alias found")
+        }
+        else {
+            console.log("not found");
+            console.log(cmd);
+        }
+        // run command
+        if (command) command.run(bot, msg, args);
     }
-    // if alias is found
-    else if (bot.aliases.has(cmd)) {
-        command = bot.commands.get(bot.aliases.get(cmd));
-        console.log("alias found")
+    else if(!channel) {
+        console.log("Not happening.");
     }
-    else {
-        console.log("not found");
-        console.log(cmd);
-    }
-    // run command
-    if (command) command.run(bot, msg, args);
    });
 bot.login(token);
