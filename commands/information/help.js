@@ -11,7 +11,7 @@ module.exports.run = (bot, msg, args) => {
 module.exports.props = {
     name: "help",
     category: "info",
-    aliases: "help, commands",
+    aliases: ["commands"],
     description: "Provides guide",
     usage: "",
 };

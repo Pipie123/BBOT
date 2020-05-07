@@ -2,3 +2,4 @@
 node_modules
 BBOT.iml
 configInfo.js
+./Storage/userData.json

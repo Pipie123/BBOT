@@ -35,6 +35,7 @@ bot.on("ready", () => {
 });
 
 bot.on("guildMemberAdd", (member) => {
+    let args = 0;
     const channel = member.guild.channels.cache.find(channel => channel.name === "general");
     if (!channel) console.log("not found");
     else {
@@ -62,14 +63,13 @@ bot.on ("message",  async msg=> {
         // if command is found
         if (bot.commands.has(cmd)) {
             command = bot.commands.get(cmd);
-            console.log("found")
         }
         // if alias is found
         else if (bot.aliases.has(cmd)) {
             command = bot.commands.get(bot.aliases.get(cmd));
-            console.log("alias found")
         }
         else {
+            console.log(bot.aliases.has(cmd));
             console.log("not found");
             console.log(cmd);
         }

@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const fs = require("fs");
+const userData = require("../../Storage/userData");
 module.exports.run = (bot, member, channel) => {
     let server = ["Malding", "Gay", "Lit", "Swaggy", "Moist"];
     let serverWord = server[Math.floor(Math.random() * 5)];
@@ -17,7 +19,7 @@ module.exports.run = (bot, member, channel) => {
     else str = "You did the pull up test and got a -2. <:uh:707120919528603648>";
 
     if (intelligence > 7) int = "Kaguya will now stalk you. Well done. <:hehe:707121022729715742>";
-    else if(intelligence > 3) int = "You scored a C on the final and your grade dropped to a B. <:sigh:707121023082037358>";
+    else if (intelligence > 3) int = "You scored a C on the final and your grade dropped to a B. <:sigh:707121023082037358>";
     else int = "You are less incompetent and dumber than Aqua. <:aqua:707114918738133033>";
 
     if (charisma > 7) chr = "You pick up all the cat girls in your local WholeFoods. <:jojo:707129288771633202>";
@@ -34,8 +36,8 @@ module.exports.run = (bot, member, channel) => {
 
     const embed = new Discord.MessageEmbed()
         .setTitle(`Welcome ${member.user.username}, to the ${serverWord} Server`)
-        .setColor('#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6))
-        .addField("So yeah,",`The following are ${member.user.username}'s stats`)
+        .setColor('#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6))
+        .addField("So yeah,", `The following are ${member.user.username}'s stats`)
         .addField("Strength: ", `${strength} ${str}`)
         .addField("Intelligence: ", `${intelligence} ${int}`)
         .addField("Charisma: ", `${charisma} ${chr}`)
@@ -44,12 +46,26 @@ module.exports.run = (bot, member, channel) => {
         .setFooter("We hope you enjoy staying here uwu", "https://imgur.com/uUVzXXB")
         .setThumbnail(member.user.displayAvatarURL());
     channel.send(embed);
+    userData[member.user.username] = {
+        strength: strength,
+        intelligence: intelligence,
+        charisma: charisma,
+        agility: agility,
+        luck: luck,
+        str: str,
+        int: int,
+        chr: chr,
+        agl: agl,
+        lck: lck,
+    };
+    fs.writeFile("./Storage/userData.json", JSON.stringify(userData), (err) => {
+        if (err) console.log("daily didnt work")
+    });
 };
-
 module.exports.props = {
     name: "serverEnter",
     description: "Tells your user info",
     usage: "blank or !userInfo @name",
     category: "information",
-    aliases: "dnd",
+    aliases: ["dnd"],
 };
